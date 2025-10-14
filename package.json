@@ -1,0 +1,17 @@
+{
+  "name": "operating-metric-catalog",
+  "version": "0.0.0",
+  "description": "Keep operating metric names, definitions, owners and decision uses together.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/edilec/operating-metric-catalog"
+  }
+}
