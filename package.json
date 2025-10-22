@@ -1,14 +1,18 @@
 {
   "name": "operating-metric-catalog",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Keep operating metric names, definitions, owners and decision uses together.",
   "type": "module",
   "engines": {
     "node": ">=22"
   },
   "scripts": {
-    "test": "node --test"
+    "test": "node --test",
+    "lint": "node --check src/index.mjs && node --check bin/operating-metric-catalog.mjs",
+    "check": "npm run lint && npm test"
   },
+  "bin": { "operating-metric-catalog": "./bin/operating-metric-catalog.mjs" },
+  "exports": { ".": "./src/index.mjs" },
   "license": "MIT",
   "repository": {
     "type": "git",
