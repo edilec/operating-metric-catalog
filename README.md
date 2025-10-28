@@ -12,7 +12,7 @@ The examples exit `0` and `1`, respectively. `--help` prints usage; `--human` ad
 
 ## Input
 
-The document has `schemaVersion: "1"`, `asOf` (`YYYY-MM-DD`), `reviewEveryDays` (1–3650), `metrics`, and `dashboards`. A metric requires an opaque `id`, human `definition`, authoritative `formula` (opaque text, never evaluated), `unit`, `grain`, `owner`, `decisionUse`, `reviewedAt`, and `threshold` with `operator` (`min` or `max`) and a nonnegative decimal-string `value` (up to 12 whole and 6 fractional digits). A dashboard reference requires `label` and `metricId`, and may carry a displayed `formula`. The displayed formula is compared with the catalog; a dashboard label never supplies or changes the authoritative formula. Fields may contain private operations terms and are therefore not copied into reports.
+The document has `schemaVersion: "1"`, `asOf` (`YYYY-MM-DD`), `reviewEveryDays` (1–3650), `metrics`, and `dashboards`. An optional `complete` boolean may explicitly mark export coverage; `false` forces incomplete, while absence makes no claim about upstream coverage. A metric requires an opaque `id`, human `definition`, authoritative `formula` (opaque text, never evaluated), `unit`, `grain`, `owner`, `decisionUse`, `reviewedAt`, and `threshold` with `operator` (`min` or `max`) and a nonnegative decimal-string `value` (up to 12 whole and 6 fractional digits). A dashboard reference requires `label` and `metricId`, and may carry a displayed `formula`. The displayed formula is compared with the catalog; a dashboard label never supplies or changes the authoritative formula. Fields may contain private operations terms and are therefore not copied into reports.
 
 Review age uses UTC calendar days from `reviewedAt` through `asOf`. Exactly `reviewEveryDays` old is current; one day older fails. Duplicate IDs make catalog evidence ambiguous. Identical definitions across distinct IDs and one definition label attached to conflicting formulas, units, or grains are reported. A reused dashboard label pointing at different metric IDs is reported. The tool compares formulas as supplied and does not parse their language or infer semantic equivalence.
 
@@ -22,7 +22,7 @@ Findings use `@input` as the logical provenance role, not a host path, with zero
 
 | Rule | Severity | Result |
 | --- | --- | --- |
-| `input-unreadable`, `input-invalid`, `byte-limit`, `record-limit`, `depth-limit`, `time-limit` | warning | incomplete |
+| `input-unreadable`, `input-invalid`, `export-incomplete`, `byte-limit`, `record-limit`, `depth-limit`, `time-limit` | warning | incomplete |
 | `no-metrics`, `metric-invalid`, `metric-id-duplicate`, `dashboard-invalid`, `dashboard-metric-unknown` | warning | incomplete |
 | `definition-duplicate`, `definition-conflict`, `dashboard-formula-conflict`, `dashboard-label-conflict`, `review-overdue` | error | fail |
 

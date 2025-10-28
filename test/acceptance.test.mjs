@@ -30,6 +30,15 @@ test('good catalog passes and dashboard label cannot supply formula', async () =
   assert.doesNotMatch(a.stdout,/private-owner|Completed orders|count\(/);
 });
 
+test('explicitly incomplete catalog export cannot pass', () => {
+  const d=structuredClone(good);d.complete=false;
+  const r=run(d);
+  assert.equal(r.status,2);
+  assert.equal(r.report.status,'incomplete');
+  assert.equal(r.report.findings[0].ruleId,'export-incomplete');
+  assert.equal(r.report.findings[0].location.pointer,'/complete');
+});
+
 test('duplicate metric identity is incomplete with source ordinal', () => {
   const d=structuredClone(good); d.metrics.push({...metric(),formula:'sum(order_count)'});
   const r=run(d);
